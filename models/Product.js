@@ -12,29 +12,35 @@ class Products {
 
   createCard(data) {
     const cardEle = document.createElement("div");
+    const imgEle = this.productImg(data);
+    const infoEle = this.productInfo(data);
 
-    const img = document.createElement("img");
-    img.src = data.image;
-    img.alt = data.alt;
+    cardEle.innerHTML = imgEle;
+    cardEle.innerHTML += infoEle;
+    this.parent.appendChild(cardEle);
+  }
 
-    cardEle.appendChild(img);
+  productImg(data) {
+    const { image, alt } = data;
+    const imgJSX = `<img alt=${alt} src=${image} />`;
+    return imgJSX;
+  }
 
-    const info = document.createElement("div");
-    const productName = document.createElement("h3");
-    const control = document.createElement("div");
-    const price = document.createElement("span");
-    const button = document.createElement("button");
+  productInfo(data) {
+    const { id, name, price } = data;
 
-    productName.innerText = data.name
-    price.innerText = data.price
-    button.innerText = "+";
+    const infoJSX = `
+        <div>
+            <h3>${name}</h3>
+            <div>
+                <span>${price}</span>
+                <button data-id=${id}>+</button>
+            </div>
+        </div>
+    `;
 
-    control.append(price,button);
-    info.append(productName,control);
-
-    cardEle.appendChild(info);
+    return infoJSX;
   }
 }
-
 
 export default Products;
