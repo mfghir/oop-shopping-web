@@ -5,6 +5,7 @@ class Cart {
     this.products = [];
 
     this.toShow = [];
+    this.parent.addEventListener("click", this);
   }
 
   showProducts() {
@@ -60,6 +61,49 @@ class Cart {
       </div>
     `;
     return controlJSX;
+  }
+
+  handleEvent(e) {
+    const tagName = e.target.tagName;
+    const id = e.target.dataset.id;
+    const type = e.target.innerText;
+
+    if (tagName === "BUTTON") return;
+
+    switch (type) {
+      case "+":
+        this.increase(id);
+        break;
+
+      case "-":
+        this.decrease(id);
+        break;
+
+      case "Remove":
+        this.remove(id);
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  increase(id) {
+    const product = this.products.find((p) => p.id === +id);
+    this.products.push(product);
+    this.showProducts();
+  }
+
+  decrease(id) {
+    const index = this.products.findIndex((p) => p.id === id);
+    this.products.splice(index, 1);
+    this.showProducts();
+  }
+
+  remove(id) {
+    const newProducts = this.products.filter((p) => pid !== +id);
+    this.products = [...newProducts];
+    this.showProducts();
   }
 }
 export default Cart;
