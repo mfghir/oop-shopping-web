@@ -1,10 +1,9 @@
-class Products {
-  constructor(parent, products, cart) {
-    this.parent = parent;
-    this.products = products;
-    this.cart = products;
+import Display from "./Display.js";
 
-    this.parent.addEventListener("click", this);
+class Products extends Display {
+  constructor(parent, products, cart) {
+    super(parent, products);
+    this.cart = cart;
   }
 
   showProducts() {
@@ -13,21 +12,7 @@ class Products {
     });
   }
 
-  createCard(data) {
-    const cardEle = document.createElement("div");
-    const imgEle = this.productImg(data);
-    const infoEle = this.productInfo(data);
-
-    cardEle.innerHTML = imgEle;
-    cardEle.innerHTML += infoEle;
-    this.parent.appendChild(cardEle);
-  }
-
-  productImg(data) {
-    const { image, alt } = data;
-    const imgJSX = `<img alt=${alt} src=${image} />`;
-    return imgJSX;
-  }
+ 
 
   productInfo(data) {
     const { id, name, price } = data;
